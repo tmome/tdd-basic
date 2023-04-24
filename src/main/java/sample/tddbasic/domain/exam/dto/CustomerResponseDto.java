@@ -26,7 +26,6 @@ public class CustomerResponseDto {
     this.mobileNumber = mobileNumber;
   }
 
-  @Builder
   public static CustomerResponseDto of(final Customer customer) {
     return CustomerResponseDto.builder()
         .name(customer.getName())

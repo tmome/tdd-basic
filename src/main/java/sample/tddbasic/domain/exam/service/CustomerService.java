@@ -13,6 +13,7 @@ import sample.tddbasic.domain.exam.repository.CustomerRepository;
 public class CustomerService {
   private final CustomerRepository customerRepository;
 
+  //default false 명시적 기입.
   @Transactional(readOnly = false)
   public CustomerResponseDto save(final CustomerRequestDto dto) {
     return CustomerResponseDto.of(customerRepository.save(buildForCustomer(dto)));
