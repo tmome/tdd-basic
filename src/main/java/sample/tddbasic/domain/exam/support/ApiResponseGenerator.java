@@ -1,5 +1,7 @@
 package sample.tddbasic.domain.exam.support;
 
+import sample.tddbasic.domain.exam.support.code.ErrorCode;
+
 public class ApiResponseGenerator {
 
     private static final ApiResponse<Void> RESULT_SUCCESS = new ApiResponse<>(ErrorCode.SUCCESS);

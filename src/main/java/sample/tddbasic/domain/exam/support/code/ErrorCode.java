@@ -1,4 +1,4 @@
-package sample.tddbasic.domain.exam.support;
+package sample.tddbasic.domain.exam.support.code;
 
 import lombok.Getter;
 import lombok.ToString;

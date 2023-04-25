@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import sample.tddbasic.domain.exam.support.code.ErrorCode;
 
 @NoArgsConstructor
 @Getter
