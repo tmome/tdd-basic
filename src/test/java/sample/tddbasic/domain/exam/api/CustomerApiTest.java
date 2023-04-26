@@ -3,10 +3,12 @@ package sample.tddbasic.domain.exam.api;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.util.NumberUtils;
 import sample.tddbasic.domain.exam.domain.Customer;
 import sample.tddbasic.domain.exam.dto.CustomerRequestDto;
 import sample.tddbasic.domain.exam.dto.CustomerResponseDto;
@@ -71,5 +74,36 @@ class CustomerApiTest {
 
     // then
     assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void basic_find() throws Exception {
+    //given
+    final Long id = 1L;
+
+    final var responseDto = CustomerResponseDto.of(
+        Customer.builder().name("cheon")
+            .email("effortsof@gamil.com")
+            .mobileNumber("000-0000-0000").build());
+
+    final var expected = objectMapper
+        .writeValueAsString(ApiResponseGenerator.success(responseDto));
+
+    // when
+    final var actualJsonString = mockMvc.perform(
+            get("/customer/{boardId}", id)
+                .accept(APPLICATION_JSON_VALUE)
+        )
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andReturn()
+        .getResponse()
+        .getContentAsString();
+
+    // then
+    assertThat(actualJsonString).isEqualTo(expected);
+
+
+
   }
 }

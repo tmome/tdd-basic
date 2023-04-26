@@ -15,6 +15,7 @@ public class CustomerService {
   private final CustomerRepository customerRepository;
 
 
+  @Transactional(readOnly = true)
   public CustomerResponseDto findById(final Long id) {
     return CustomerResponseDto.of(customerRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("해당 하는 아이디를 찾을 수 없습니다.")));
