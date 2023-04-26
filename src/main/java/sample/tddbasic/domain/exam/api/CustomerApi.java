@@ -1,6 +1,8 @@
 package sample.tddbasic.domain.exam.api;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,11 @@ import sample.tddbasic.domain.exam.support.ApiResponseGenerator;
 public class CustomerApi {
 
   private final CustomerService customerService;
+
+  @GetMapping("/{id}")
+  public ApiResponse<CustomerResponseDto> findCustomer(final @PathVariable Long id ) {
+    return ApiResponseGenerator.success(customerService.findById(id));
+  }
 
   @PostMapping
   public ApiResponse<CustomerResponseDto> save(final @RequestBody CustomerRequestDto dto) {

@@ -1,5 +1,6 @@
 package sample.tddbasic.domain.exam.service;
 
+import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,12 @@ import sample.tddbasic.domain.exam.repository.CustomerRepository;
 @RequiredArgsConstructor
 public class CustomerService {
   private final CustomerRepository customerRepository;
+
+
+  public CustomerResponseDto findById(final Long id) {
+    return CustomerResponseDto.of(customerRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("해당 하는 아이디를 찾을 수 없습니다.")));
+  }
 
   //default false 명시적 기입.
   @Transactional(readOnly = false)
